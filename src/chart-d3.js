@@ -1,8 +1,9 @@
+/* eslint-disable no-restricted-globals */
 import * as d3 from 'd3';
 
 // Define margin, width, and height of d3 chart canvas
-const MARGIN = { TOP: 10, BOTTOM: 10, LEFT: 10, RIGHT: 10 };
-const WIDTH = 500 - MARGIN.LEFT - MARGIN.RIGHT;
+const MARGIN = { TOP: 30, BOTTOM: 50, LEFT: 70, RIGHT: 40 };
+const WIDTH = 600 - MARGIN.LEFT - MARGIN.RIGHT;
 const HEIGHT = 500 - MARGIN.TOP - MARGIN.BOTTOM;
 
 export default class D3Chart {
@@ -32,7 +33,7 @@ export default class D3Chart {
     vis.svg
       .append('text')
       .attr('x', -(HEIGHT / 2))
-      .attr('y', -50)
+      .attr('y', -30)
       .attr('text-anchor', 'middle')
       .text('b, c')
       .attr('transform', 'rotate(-90)');
@@ -46,24 +47,25 @@ export default class D3Chart {
 
     vis.yAxisGroup = vis.svg.append('g');
 
-    vis.data = chartData;
+    // Sort input data
+    vis.data = chartData.sort(function (a,b) {return a.a - b.a})
 
-    // need a values only for x axis
-    let xVals = []
-    for(let i = 0; i < chartData.length; i++){
-      xVals.push(chartData.a)
+    // Get a values only from data for x axis
+    let xVals = [];
+    for (let i = 0; i < chartData.length; i++) {
+      xVals.push(chartData.a);
     }
 
     // Find max b line
-    const maxB = d3.max(vis.data, d => d.b)
-    const minB = d3.min(vis.data, d => d.b)
+    const maxB = d3.max(vis.data, d => d.b);
+    const minB = d3.min(vis.data, d => d.b);
 
     // Find max c line
-    const maxC = d3.max(vis.data, d => d.c)
-    const minC = d3.min(vis.data, d => d.c)
+    const maxC = d3.max(vis.data, d => d.c);
+    const minC = d3.min(vis.data, d => d.c);
 
-    const maxY = Math.max(maxB, maxC)
-    const minY = Math.min(minB, minC)
+    const maxY = Math.max(maxB, maxC);
+    const minY = Math.min(minB, minC);
 
     // Scale y axis
     const y = d3
@@ -75,8 +77,8 @@ export default class D3Chart {
     // Put height as min to get y axis to start at bottom left
 
     // Find max of a data for x axis
-    const maxX = d3.max(vis.data, d => d.a)
-    const minX = d3.min(vis.data, d => d.a)
+    const maxX = d3.max(vis.data, d => d.a);
+    const minX = d3.min(vis.data, d => d.a);
 
     // Scale x axis
     const x = d3
@@ -103,7 +105,74 @@ export default class D3Chart {
       .duration(500)
       .call(yAxisCall);
 
-    // Create tool tips to display details about each data point
+    let lineB = d3
+      .line()
+      .x(function(d) {
+        return x(d.a);
+      })
+      .y(function(d) {
+        return y(d.b);
+      });
+
+    let mouseGroup = vis.svg.append('g')
+
+    let lineC = d3
+      .line()
+      .x(function(d) {
+        return x(d.a);
+      })
+      .y(function(d) {
+        return y(d.c);
+      });
+
+    // let mouseLines = mouseGroup
+
+    // Populate line B
+    vis.svg
+      .append('path')
+      .data([vis.data])
+      .attr('class', 'line')
+      .attr('fill', 'none')
+      .attr('stroke', '#11C3D0')
+      .attr('stroke-width', 2)
+      .attr('d', lineB);
+    // .attr(
+    //   'd',
+    //   d3
+    //     .line()
+    //     .x(function(d) {
+    //       return x(d.a)
+    //     })
+    //     .y(function(d) {
+    //       return y(d.b)
+    //     })
+    // )
+    // .attr(
+    //   'd',
+    //   d3
+    //     .line()
+    //     .x(function(d) {
+    //       return x(d.a)
+    //     })
+    //     .y(function(d) {
+    //       return y(d.c)
+    //     })
+    // )
+
+    // Populate line C
+    vis.svg
+      .append('path')
+      .data([vis.data])
+      .attr('class', 'line')
+      .attr('fill', 'none')
+      .attr('stroke', '#000099') // dark blue
+      .attr('stroke-width', 2)
+      .attr('d', lineC);
+
+    // update the format
+    // let format = d3.
+
+    // Create Tooltips for line B
     vis.Tooltip = d3
       .select(element)
       .append('div')
@@ -121,32 +190,6 @@ export default class D3Chart {
       .style('font-size', '60%')
       .style('position', 'absolute');
 
-      // Populate canvas and lines
-      vis.svg
-      .append('path')
-      .datum(vis.data)
-      .attr('fill', 'none')
-      .attr('stroke', '#11C3D0')
-      .attr('stroke-width', 2)
-      .attr(
-        'd',
-        d3
-          .line()
-          .x(function(d) {
-            return x(d.a)
-          })
-          .y(function(d) {
-            return y(d.b)
-          })
-          .y(function(d) {
-            return y(d.c)
-          })
-      )
-
-
-    // update the format
-    // let format = d3.
-
     let mouseover = function(d) {
       vis.Tooltip.style('opacity', 1);
       d3.select(this)
@@ -154,15 +197,12 @@ export default class D3Chart {
         .style('stroke', '#4652B1')
         .style('opacity', 1);
     };
-    // let mousemove = function(d) {
-      // vis.Tooltip.html(
-      //   // Pass chart data in that will be highlighted on mouse move
-      //   `
-      //   ${format(d3.isoParse(d.createdAt))}<br>${chartData}`
-      // )
-      //   .style('left', event.pageX + 10 + 'px')
-      //   .style('top', event.pageY + 'px')
-    // };
+
+    let mousemove = function(d) {
+      vis.Tooltip.html(`a: ${d.a} b: ${d.b}`)
+        .style('left', event.pageX + 10 + 'px')
+        .style('top', event.pageY + 'px');
+    };
 
     let mouseleave = function(d) {
       vis.Tooltip.style('opacity', 0);
@@ -171,6 +211,48 @@ export default class D3Chart {
         .style('stroke', 'none')
         .style('opacity', 0.7);
     };
+
+    // Create tooltips for line C
+
+    // Create Tooltips for line B
+    // vis.Tooltip2 = d3
+    //   .select(element)
+    //   .append('div')
+    //   .style('opacity', 0)
+    //   .attr('class', 'tooltip')
+    //   .style('background-color', 'white')
+    //   .style('color', '#5298D5') // blue
+    //   .style('border', 'solid')
+    //   .style('border-color', '#5298D5') // blue
+    //   .style('border-width', '3px')
+    //   .style('border-radius', '3px')
+    //   .style('width', 'fit-content')
+    //   .style('text-align', 'center')
+    //   .style('padding', '5px')
+    //   .style('font-size', '60%')
+    //   .style('position', 'absolute');
+
+    // let mouseover = function(d) {
+    //   vis.Tooltip2.style('opacity', 1);
+    //   d3.select(this)
+    //     .attr('r', 7)
+    //     .style('stroke', '#4652B1')
+    //     .style('opacity', 1);
+    // };
+
+    // let mousemove = function(d) {
+    //   vis.Tooltip2.html(`a: ${d.a} c: ${d.c}`)
+    //     .style('left', event.pageX + 10 + 'px')
+    //     .style('top', event.pageY + 'px');
+    // };
+
+    // let mouseleave = function(d) {
+    //   vis.Tooltip2.style('opacity', 0);
+    //   d3.select(this)
+    //     .attr('r', 5)
+    //     .style('stroke', 'none')
+    //     .style('opacity', 0.7);
+    // };
 
     // Add the points or circles to each piece of data
     vis.svg
@@ -190,7 +272,7 @@ export default class D3Chart {
       .style('stroke-width', 4)
       .style('stroke', 'none')
       .on('mouseover', mouseover)
-      // .on('mousemove', mousemove)
+      .on('mousemove', mousemove)
       .on('mouseleave', mouseleave);
   }
 }
