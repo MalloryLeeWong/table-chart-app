@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.axis {
+  font-size: 50%;
+}
+
+.axis-label {
+  font-size: 70%;
+}
+
+.table {
+  text-align: center
+}

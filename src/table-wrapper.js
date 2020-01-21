@@ -19,7 +19,7 @@ class TableWrapper extends Component {
   render() {
     return (
       <div>
-        <Paper className="" elevation={4}>
+        <Paper className="table" elevation={4}>
         <Typography variant="h5">Table</Typography>
           <div ref="tableWrapper" />
         </Paper>

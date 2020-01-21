@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 
 // Define margin, width, and height of d3 chart canvas
-const MARGIN = { TOP: 30, BOTTOM: 50, LEFT: 70, RIGHT: 40 };
+const MARGIN = { TOP: 20, BOTTOM: 60, LEFT: 60, RIGHT: 60 };
 const WIDTH = 600 - MARGIN.LEFT - MARGIN.RIGHT;
 const HEIGHT = 500 - MARGIN.TOP - MARGIN.BOTTOM;
 
@@ -27,16 +27,18 @@ export default class D3Chart {
       .attr('x', WIDTH / 2)
       .attr('y', HEIGHT + 45)
       .attr('text-anchor', 'middle')
-      .text('a');
+      .text('a')
+      .attr('class', 'axis-label')
 
-    // Add y-axis label (WAS COMMENTED OUT)
+    // Add y-axis label
     vis.svg
       .append('text')
       .attr('x', -(HEIGHT / 2))
       .attr('y', -30)
       .attr('text-anchor', 'middle')
       .text('b, c')
-      .attr('transform', 'rotate(-90)');
+      .attr('transform', 'rotate(-90)')
+      .attr('class', 'axis-label')
 
     // Define x and y axis together
     vis.xAxisGroup = vis.svg
@@ -48,13 +50,9 @@ export default class D3Chart {
     vis.yAxisGroup = vis.svg.append('g');
 
     // Sort input data
-    vis.data = chartData.sort(function (a,b) {return a.a - b.a})
-
-    // Get a values only from data for x axis
-    let xVals = [];
-    for (let i = 0; i < chartData.length; i++) {
-      xVals.push(chartData.a);
-    }
+    vis.data = chartData.sort(function(a, b) {
+      return a.a - b.a;
+    });
 
     // Find max b line
     const maxB = d3.max(vis.data, d => d.b);
@@ -67,17 +65,23 @@ export default class D3Chart {
     const maxY = Math.max(maxB, maxC);
     const minY = Math.min(minB, minC);
 
-    // Get values for y axis
-    let yVals = []
-    for (let i = minY; i <= maxY; i++) {
+    // Get y axis tick values
+    let yVals = [];
+    for (let i = minY; i <= maxY; i += maxY / 10) {
       yVals.push(i);
+    }
+
+    // Get x axis tick values
+    let xVals = [];
+    for (let i = 0; i < vis.data.length; i++) {
+      xVals.push(vis.data[i].a);
     }
 
     // Scale y axis
     const y = d3
       .scaleLinear()
       // Domain takes an array with 2 elements, min and max input units
-      .domain([minY * 0.95, maxY])
+      .domain([minY, maxY])
       // Range takes an array of 2 elements, min and max outputs in pixels
       .range([HEIGHT, 0]);
     // Put height as min to get y axis to start at bottom left
@@ -98,22 +102,25 @@ export default class D3Chart {
       .axisBottom(x)
       .tickValues(xVals)
       .tickFormat(d => tickFormat(d))
+
     // Use call method to call or recalculate axis dynamically
     vis.xAxisGroup
       .transition()
       .duration(500)
-      .call(xAxisCall);
+      .call(xAxisCall)
+      .attr('class', 'axis')
 
-    // updates y axis (WAS COMMENTED OUT)
+    // Update y axis
     const yAxisCall = d3
       .axisLeft(y)
       .tickValues(yVals)
-      .tickFormat(d => tickFormat(d))
+      .tickFormat(d => tickFormat(d));
 
     vis.yAxisGroup
       .transition()
       .duration(500)
-      .call(yAxisCall);
+      .call(yAxisCall)
+      .attr('class', 'axis')
 
     let lineB = d3
       .line()
@@ -169,7 +176,7 @@ export default class D3Chart {
       .style('text-align', 'center')
       .style('padding', '5px')
       .style('font-size', '60%')
-      .style('position', 'absolute')
+      .style('position', 'absolute');
 
     let mouseover = function(d) {
       vis.Tooltip.style('opacity', 1);
@@ -180,9 +187,7 @@ export default class D3Chart {
     };
 
     let mousemove = function(d) {
-      vis.Tooltip.html(
-        `a: ${d.a}, b: ${d.b}, c: ${d.c}`
-        )
+      vis.Tooltip.html(`a: ${d.a}, b: ${d.b}, c: ${d.c}`)
         .style('left', event.pageX + 10 + 'px')
         .style('top', event.pageY + 'px');
     };
@@ -236,7 +241,5 @@ export default class D3Chart {
       .on('mouseover', mouseover)
       .on('mousemove', mousemove)
       .on('mouseleave', mouseleave);
-
   }
-
 }

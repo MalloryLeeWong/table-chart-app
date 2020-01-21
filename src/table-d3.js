@@ -1,13 +1,9 @@
 import * as d3 from 'd3';
 
-// Define margin, width, and height of d3 chart canvas
-// const MARGIN = { TOP: 10, BOTTOM: 10, LEFT: 10, RIGHT: 10 };
-// const WIDTH = 500 - MARGIN.LEFT - MARGIN.RIGHT;
-// const HEIGHT = 500 - MARGIN.TOP - MARGIN.BOTTOM;
-
 export default class D3Table {
   constructor(element, chartData) {
 
+    // Get columns and rows data
     let columns = Object.keys(chartData[0])
 
     let rowsData = []
@@ -37,8 +33,7 @@ export default class D3Table {
       .enter()
       .append('tr')
 
-    // create cells in each row for each column
-    // let cells =
+    // Create cells in each row for each column
     rows.selectAll('td')
       .data(function(row){
         return columns.map(function(column){
