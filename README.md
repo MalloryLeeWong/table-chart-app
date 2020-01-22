@@ -1,3 +1,19 @@
+## About
+This is a prototype for a front-end web app that displays data inputs as a table and a chart.
+
+## Instructions
+- npm install
+- npm start
+
+## Technologies Used
+- Javascript
+- React
+- D3.js
+- HTML
+- CSS
+
+## Learn More About Create React App
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
