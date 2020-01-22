@@ -118,7 +118,7 @@ export default class D3Chart {
       .domain([minY, maxY])
       // Range takes an array of 2 elements, min and max outputs in pixels
       .range([HEIGHT, 0]);
-    // Put height as min to get y axis to start at bottom left
+      // Put height as min to get y axis to start at bottom left
 
     // Scale x axis
     const x = d3
@@ -152,49 +152,33 @@ export default class D3Chart {
       .call(yAxisCall)
       .attr('class', 'axis');
 
-    let lineB = d3
-      .line()
-      .x(function(d) {
-        return x(d.a);
-      })
-      .y(function(d) {
-        return y(d.b);
-      });
 
-    let lineC = d3
-      .line()
-      .x(function(d) {
-        return x(d.a);
-      })
-      .y(function(d) {
-        return y(d.c);
-      });
+    // Create and populate each line
 
-    // Populate line B
-    vis.svg
+    let lineNames = Object.keys(vis.data[idxMaxKeys]).slice(1)
+
+    lineNames.forEach(function(name){
+      vis.svg
       .append('path')
       .data([vis.data])
       .attr('class', 'line')
       .attr('fill', 'none')
-      .attr('stroke', '#b3b3cc') // grey
-      .attr('stroke-width', 4)
-      .attr('d', lineB)
+      .attr('stroke', '#004d80') // dark blue
+      .attr('stroke-width', 3)
+      .attr('d',
+        d3
+        .line()
+        .x(function(d) {
+          return x(d.a);
+        })
+        .y(function(d) {
+          return y(d[name]);
+        })
+      )
       .attr('data-legend', function(d) {
         return d.a;
       });
-
-    // Populate line C
-    vis.svg
-      .append('path')
-      .data([vis.data])
-      .attr('class', 'line')
-      .attr('fill', 'none')
-      .attr('stroke', '#007acc') // medium blue
-      .attr('stroke-width', 4)
-      .attr('d', lineC)
-      .attr('data-legend', function(d) {
-        return d.a;
-      });
+    })
 
     // Create legend circle
     vis.svg
