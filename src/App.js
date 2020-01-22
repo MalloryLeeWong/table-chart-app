@@ -8,20 +8,20 @@ function App() {
 
   // original data sample
 
-  // let data = [
-  //   { a: 1, b: 3, c: 10 },
-  //   { a: 3, b: 20, c: 12 },
-  //   { a: -1, b: -5, c: -4 },
-  // ];
-
-  // data sample 2 longer
   let data = [
     { a: 1, b: 3, c: 10 },
     { a: 3, b: 20, c: 12 },
     { a: -1, b: -5, c: -4 },
-    { a: -10, b: -15, c: -14 },
-    { a: 10, b: 82, c: 100 },
   ];
+
+  // data sample 2 longer
+  // let data = [
+  //   { a: 1, b: 3, c: 10 },
+  //   { a: 3, b: 20, c: 12 },
+  //   { a: -1, b: -5, c: -4 },
+  //   { a: -10, b: -15, c: -14 },
+  //   { a: 10, b: 82, c: 100 },
+  // ];
 
   return (
     <div className="App">
