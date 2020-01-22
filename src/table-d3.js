@@ -1,11 +1,23 @@
 import * as d3 from 'd3';
 
+// Create table class for creating instance in relevant React component
 export default class D3Table {
   constructor(element, chartData) {
 
-    // Get columns and rows data
-    let columns = Object.keys(chartData[0])
+    // Get columns data
+    let maxKeys = 0;
+    let idxMaxKeys = 0;
+    for (let i = 0; i < chartData; i++) {
+      let obj = chartData[i];
+      if (Object.keys(obj).length > maxKeys) {
+        maxKeys = Object.keys(obj).length;
+        idxMaxKeys = i;
+      }
+    }
 
+    let columns = Object.keys(chartData[idxMaxKeys])
+
+    // Get rows data
     let rowsData = []
     for(let i = 0; i < chartData.length; i++){
       let obj = chartData[i]
@@ -14,7 +26,7 @@ export default class D3Table {
       rowsData.push(row)
     }
 
-    // Append the table onto the element
+    // Append the table onto the canvas element
     let table = d3.select(element)
       .append('table')
       .attr('class', 'header')
@@ -47,7 +59,5 @@ export default class D3Table {
       .enter()
       .append('td')
         .text(function(d){return d.value})
-
   }
-
 }
