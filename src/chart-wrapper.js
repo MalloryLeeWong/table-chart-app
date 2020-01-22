@@ -21,7 +21,7 @@ class ChartWrapper extends Component {
       <div>
         <Paper className="chart" elevation={4}>
           <div className="title">
-          <Typography variant="h5">B and C</Typography>
+          <Typography variant="h5">b and c</Typography>
           </div>
           <div ref="chartWrapper" />
         </Paper>

@@ -1,3 +1,20 @@
+
+/* ------------------------
+    Grid View
+------------------------ */
+
+* {
+  box-sizing: border-box;
+}
+
+.table-main {
+  float:left;
+}
+
+.chart-main {
+  float:left;
+}
+
 /* ------------------------
     App
 ------------------------ */
@@ -45,6 +62,10 @@
     Chart
 ------------------------ */
 
+.chart {
+  float: left;
+}
+
 .axis {
   font-size: 60%;
 }
@@ -55,23 +76,20 @@
 }
 
 .title {
-  padding-top: 15px
+  padding-top: 3%
+}
+
+.legend-text {
+  padding-right: 3%
 }
 
 /* ------------------------
     Table
 ------------------------ */
 
-/* .table {
-  text-align: center;
-  font-size: 70%;
-  padding: 20px auto 20px auto;
+.table {
+  float: left;
 }
-
-td, th, tr {
-  padding: 8% 8%;
-  text-align: center;
-} */
 
 .header {
   display: flex;

@@ -176,14 +176,14 @@ export default class D3Chart {
       .attr('cx', 600)
       .attr('cy', (HEIGHT / 2) * 1.1)
       .attr('r', 6)
-      .style('fill', '#004d80'); // dark blue
+      .style('fill', '#004d80') // dark blue
 
     vis.svg
       .append('circle')
       .attr('cx', 600)
       .attr('cy', HEIGHT / 2)
       .attr('r', 6)
-      .style('fill', '#b3b3cc'); // grey
+      .style('fill', '#b3b3cc') // grey
 
     // Create legend text
     vis.svg
@@ -192,7 +192,8 @@ export default class D3Chart {
       .attr('y', (HEIGHT / 2) * 1.1)
       .text('c')
       .style('font-size', '60%')
-      .attr('alignment-baseline', 'middle');
+      .attr('alignment-baseline', 'middle')
+      .attr('class', 'legend-text')
 
     vis.svg
       .append('text')
@@ -200,7 +201,9 @@ export default class D3Chart {
       .attr('y', HEIGHT / 2)
       .text('b') // b is grey
       .style('font-size', '60%')
-      .attr('alignment-baseline', 'middle');
+      .attr('alignment-baseline', 'middle')
+      .style('padding-right', '3%')
+      .attr('class', 'legend-text')
 
     // Create Tooltips for lines
     vis.Tooltip = d3
