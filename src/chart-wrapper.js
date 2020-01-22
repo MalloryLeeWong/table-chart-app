@@ -45,7 +45,7 @@ class ChartWrapper extends Component {
           <div className="title">
             <Typography variant="h5">{`${titleStr}`}</Typography>
           </div>
-          <div class="info-con">
+          <div className="info-con">
             <Tooltip title="Hover over line points for details">
               <InfoIcon color="disabled" />
             </Tooltip>

@@ -7,14 +7,14 @@ function App() {
   // Data inputs for each chart is loaded below to demo the front-end without a server
 
   // Data sample 1 (Original data including two lines)
-  let data = [
+  const data = [
     { a: 1, b: 3, c: 10 },
     { a: 3, b: 20, c: 12 },
     { a: -1, b: -5, c: -4 },
   ];
 
   // Data sample 2 (Uncomment to include more and longer lines):
-  // let data = [
+  // const data = [
   //   { a: 1, b: 3, c: 10, d: 17, e: 40, f: 45 },
   //   { a: 3, b: 20, c: 12, d: 28, e: 50, f: 57 },
   //   { a: -1, b: -5, c: -4, d: -18, e: -25, f: -30 },

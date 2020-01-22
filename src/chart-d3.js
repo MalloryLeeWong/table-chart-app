@@ -33,7 +33,7 @@ export default class D3Chart {
       .attr('x', WIDTH / 2)
       .attr('y', HEIGHT + 50)
       .attr('text-anchor', 'middle')
-      .text(`${Object.keys(vis.data[0])[0]}`) // 'a'
+      .text(`${Object.keys(vis.data[0])[0]}`) //
       .attr('class', 'axis-label');
 
     // Find data object with largest number of keys to get y-axis labels
@@ -107,7 +107,8 @@ export default class D3Chart {
     }
 
     // Get x-axis tick values
-    let incremX = (Math.abs(maxX) + Math.abs(minX)) / 10;
+    let diffX = Math.abs(maxX) + Math.abs(minX)
+    let incremX = Math.ceil(diffX % 2 === 0 ? (diffX / 10)  : ((diffX + 1) / 10))
     let xVals = [];
     for (let i = minX; i <= maxX + incremX; i += incremX) {
       xVals.push(i);

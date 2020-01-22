@@ -2,7 +2,13 @@
 This is a front-end web app that displays data as a table and a chart. As a user, you can see the table and chart data update dynamically when the data inputs are changed. The table and chart were built in a modular way to be re-usable.
 
 <p align="left">
-<img src="public/table-chart-ui.png"
+<img src="public/view-1.png"
+     alt="Main View"
+     width="600px" height="auto" />
+</p>
+
+<p align="left">
+<img src="public/view-2.png"
      alt="Main View"
      width="600px" height="auto" />
 </p>
