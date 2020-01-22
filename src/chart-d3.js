@@ -154,9 +154,7 @@ export default class D3Chart {
 
 
     // Create and populate each line
-
     let lineNames = Object.keys(vis.data[idxMaxKeys]).slice(1)
-
     lineNames.forEach(function(name){
       vis.svg
       .append('path')
@@ -180,40 +178,34 @@ export default class D3Chart {
       });
     })
 
-    // Create legend circle
-    vis.svg
-      .append('circle')
-      .attr('cx', 600)
-      .attr('cy', (HEIGHT / 2) * 1.1)
-      .attr('r', 6)
-      .style('fill', '#004d80'); // dark blue
+    // Create legend items for each line
+    let spaceBtwnY = 1.1
+    let spaceBtwnX1 = 600
+    let spaceBtwnX2 = 625
+    let lineColors = ['#b3b3cc', '#008ae6', '#004d80', '#000000']
+    let lineColorIdx = 0
 
-    vis.svg
+    lineNames.forEach(function(name){
+      vis.svg
       .append('circle')
-      .attr('cx', 600)
-      .attr('cy', HEIGHT / 2)
+      .attr('cx', spaceBtwnX1)
+      .attr('cy', (HEIGHT / 3) * spaceBtwnY)
       .attr('r', 6)
-      .style('fill', '#b3b3cc'); // grey
+      .style('fill', `${lineColors[lineColorIdx]}`);
 
-    // Create legend text
     vis.svg
       .append('text')
-      .attr('x', 625)
-      .attr('y', (HEIGHT / 2) * 1.1)
-      .text('c')
+      .attr('x', spaceBtwnX2)
+      .attr('y', (HEIGHT / 3) * spaceBtwnY)
+      .text(`${name}`)
       .style('font-size', '60%')
       .attr('alignment-baseline', 'middle')
       .attr('class', 'legend-text');
 
-    vis.svg
-      .append('text')
-      .attr('x', 625)
-      .attr('y', HEIGHT / 2)
-      .text('b') // b is grey
-      .style('font-size', '60%')
-      .attr('alignment-baseline', 'middle')
-      .style('padding-right', '3%')
-      .attr('class', 'legend-text');
+      // Alternate colors and add space between each legend item
+      spaceBtwnY += 0.15
+      lineColorIdx++
+    })
 
     // Create Tooltips for lines
     vis.Tooltip = d3
@@ -241,8 +233,15 @@ export default class D3Chart {
         .style('opacity', 1);
     };
 
+    // On mousemove, show each data point's value
     let mousemove = function(d) {
-      vis.Tooltip.html(`a: ${d.a}, b: ${d.b}, c: ${d.c}`)
+      vis.Tooltip.html(
+        lineNames
+          .map(function(name){
+          return `${name}: ${d[name]}`
+          })
+          .join(', ')
+        )
         .style('left', event.pageX + 10 + 'px')
         .style('top', event.pageY + 'px');
     };
@@ -255,46 +254,28 @@ export default class D3Chart {
         .style('opacity', 0.7);
     };
 
-    // Apply tool tips and circle points to line B
-    vis.svg
+    // Apply tool tips and circle points to each line
+    lineNames.forEach(function(name){
+      vis.svg
       .append('g')
       .selectAll('dot')
-      .data(vis.data) // does vis.data need to be in an array
+      .data(vis.data)
       .enter()
       .append('circle')
       .attr('cx', function(d) {
         return x(d.a);
       })
       .attr('cy', function(d) {
-        return y(d.b);
+        return y(d[name]);
       })
-      .attr('r', 4)
+      .attr('r', 3.5)
       .attr('fill', '#004d80') // dark blue
       .style('stroke-width', 3)
       .style('stroke', 'none')
       .on('mouseover', mouseover)
       .on('mousemove', mousemove)
       .on('mouseleave', mouseleave);
+    })
 
-    // Apply tool tips and circle points to line C
-    vis.svg
-      .append('g')
-      .selectAll('dot')
-      .data(vis.data) // does vis.data need to be in an array
-      .enter()
-      .append('circle')
-      .attr('cx', function(d) {
-        return x(d.a);
-      })
-      .attr('cy', function(d) {
-        return y(d.c);
-      })
-      .attr('r', 4)
-      .attr('fill', '#004d80') // dark blue
-      .style('stroke-width', 3)
-      .style('stroke', 'none')
-      .on('mouseover', mouseover)
-      .on('mousemove', mousemove)
-      .on('mouseleave', mouseleave);
   }
 }
