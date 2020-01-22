@@ -79,5 +79,16 @@ td, th, tr {
   align-items: center;
   align-content: space-between;
   padding: 10% 10%;
+  margin: 15% auto 15% auto;
   font-size: calc(10px + 1vmin);
+}
+
+.header th {
+  padding: 12px
+  /* padding-left: 8%;
+  padding-right: 8%; */
+}
+
+.header td {
+  padding: 5px
 }

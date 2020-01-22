@@ -30,7 +30,6 @@ export default class D3Table {
       .enter()
       .append('th')
         .text(function(column){return column})
-      .style('padding', '5px')
 
     // Create a row for each object in the data array
     let rows = body.selectAll('tr')

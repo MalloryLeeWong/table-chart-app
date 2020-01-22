@@ -28,7 +28,7 @@ export default class D3Chart {
       .attr('y', HEIGHT + 50)
       .attr('text-anchor', 'middle')
       .text('a')
-      .attr('class', 'axis-label')
+      .attr('class', 'axis-label');
 
     // Add y-axis label
     vis.svg
@@ -38,7 +38,7 @@ export default class D3Chart {
       .attr('text-anchor', 'middle')
       .text('b, c')
       .attr('transform', 'rotate(-90)')
-      .attr('class', 'axis-label')
+      .attr('class', 'axis-label');
 
     // Define x and y axis together
     vis.xAxisGroup = vis.svg
@@ -62,19 +62,27 @@ export default class D3Chart {
     const maxC = d3.max(vis.data, d => d.c);
     const minC = d3.min(vis.data, d => d.c);
 
+    // Find max of a data for y axis
     const maxY = Math.max(maxB, maxC);
     const minY = Math.min(minB, minC);
 
+    // Find max of a data for x axis
+    const maxX = d3.max(vis.data, d => d.a);
+    const minX = d3.min(vis.data, d => d.a);
+
     // Get y axis tick values
+    let incremY = (Math.abs(maxY) + Math.abs(minY)) / 10
     let yVals = [];
-    for (let i = minY; i <= maxY; i += maxY / 10) {
+    for (let i = minY; i <= maxY; i += incremY) {
       yVals.push(i);
     }
 
     // Get x axis tick values
+    let incremX = (Math.abs(maxX) + Math.abs(minX)) / 10
     let xVals = [];
-    for (let i = 0; i < vis.data.length; i++) {
-      xVals.push(vis.data[i].a);
+    for (let i = minX; i <= maxX; i += incremX) {
+      // xVals.push(vis.data[i].a);
+      xVals.push(i)
     }
 
     // Scale y axis
@@ -85,10 +93,6 @@ export default class D3Chart {
       // Range takes an array of 2 elements, min and max outputs in pixels
       .range([HEIGHT, 0]);
     // Put height as min to get y axis to start at bottom left
-
-    // Find max of a data for x axis
-    const maxX = d3.max(vis.data, d => d.a);
-    const minX = d3.min(vis.data, d => d.a);
 
     // Scale x axis
     const x = d3
@@ -101,14 +105,14 @@ export default class D3Chart {
     const xAxisCall = d3
       .axisBottom(x)
       .tickValues(xVals)
-      .tickFormat(d => tickFormat(d))
+      .tickFormat(d => tickFormat(d));
 
     // Use call method to call or recalculate axis dynamically
     vis.xAxisGroup
       .transition()
       .duration(500)
       .call(xAxisCall)
-      .attr('class', 'axis')
+      .attr('class', 'axis');
 
     // Update y axis
     const yAxisCall = d3
@@ -120,7 +124,7 @@ export default class D3Chart {
       .transition()
       .duration(500)
       .call(yAxisCall)
-      .attr('class', 'axis')
+      .attr('class', 'axis');
 
     let lineB = d3
       .line()
@@ -149,7 +153,9 @@ export default class D3Chart {
       .attr('stroke', '#b3b3cc') // grey
       .attr('stroke-width', 4)
       .attr('d', lineB)
-      .attr('data-legend', function(d){return d.a})
+      .attr('data-legend', function(d) {
+        return d.a;
+      });
 
     // Populate line C
     vis.svg
@@ -160,7 +166,9 @@ export default class D3Chart {
       .attr('stroke', '#007acc') // medium blue
       .attr('stroke-width', 4)
       .attr('d', lineC)
-      .attr('data-legend', function(d){return d.a})
+      .attr('data-legend', function(d) {
+        return d.a;
+      });
 
     // Create legend circle
     vis.svg
@@ -168,23 +176,23 @@ export default class D3Chart {
       .attr('cx', 600)
       .attr('cy', (HEIGHT / 2) * 1.1)
       .attr('r', 6)
-      .style('fill', '#004d80') // dark blue
+      .style('fill', '#004d80'); // dark blue
 
     vis.svg
       .append('circle')
       .attr('cx', 600)
       .attr('cy', HEIGHT / 2)
       .attr('r', 6)
-      .style('fill', '#b3b3cc') // grey
+      .style('fill', '#b3b3cc'); // grey
 
     // Create legend text
     vis.svg
-    .append('text')
-    .attr('x', 625)
-    .attr('y', (HEIGHT / 2) * 1.1)
-    .text('c')
-    .style('font-size', '60%')
-    .attr('alignment-baseline', 'middle')
+      .append('text')
+      .attr('x', 625)
+      .attr('y', (HEIGHT / 2) * 1.1)
+      .text('c')
+      .style('font-size', '60%')
+      .attr('alignment-baseline', 'middle');
 
     vis.svg
       .append('text')
@@ -192,7 +200,7 @@ export default class D3Chart {
       .attr('y', HEIGHT / 2)
       .text('b') // b is grey
       .style('font-size', '60%')
-      .attr('alignment-baseline', 'middle')
+      .attr('alignment-baseline', 'middle');
 
     // Create Tooltips for lines
     vis.Tooltip = d3

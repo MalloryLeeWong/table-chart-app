@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import D3Table from './table-d3';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 class TableWrapper extends Component {
   constructor(props) {
