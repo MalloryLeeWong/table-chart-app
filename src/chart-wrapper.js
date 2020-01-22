@@ -33,8 +33,8 @@ class ChartWrapper extends Component {
     lineNames.forEach(function(name){
       titleArr.push(name)
     })
-    let titleStrFront = titleArr.slice(0, -2).join(', ')
-    let titleStrEnd = titleArr.slice(-2, -1)
+    let titleStrFront = titleArr.slice(0, -1).join(', ')
+    let titleStrEnd = titleArr.slice(-1)
     let titleStr = titleStrFront + ', and ' + titleStrEnd
 
     return (
