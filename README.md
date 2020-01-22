@@ -27,6 +27,6 @@ This is a front-end web app that displays data as a table and a chart. As a user
 - CSS
 - Material UI
 
-To build the app, React was used to create a user interface that renders changes in state in a performant way. React was also used to develop modular and re-usable components to display updates to the table and the chart. D3.js, a powerful Javascript data visualization library, was used to perform the calculations to create the table and the chart. HTML, CSS, and Material UI components were used to create a clean and user-friendly interface.
+To build the app, React was used to create a user interface that renders changes in state in a performant way. React was also used to develop modular and re-usable components to display updates to the table and the chart. D3.js, a powerful Javascript data visualization library, was used to perform the calculations to create the table and the chart. HTML, CSS, and Material UI components were used to create a clean and user-friendly interface. A challenge faced in building this app was to create responsive layout and charts that update dynamically to accomodate varying input data sizes.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
