@@ -54,7 +54,6 @@ export default class D3Chart {
       .attr('x', -(HEIGHT / 2))
       .attr('y', -50)
       .attr('text-anchor', 'middle')
-      // .text('b, c')
       .text(`${yAxisVars}`)
       .attr('transform', 'rotate(-90)')
       .attr('class', 'axis-label');
@@ -68,19 +67,32 @@ export default class D3Chart {
 
     vis.yAxisGroup = vis.svg.append('g');
 
-    // Find max b line
-    const maxB = d3.max(vis.data, d => d.b);
-    const minB = d3.min(vis.data, d => d.b);
+    // Find max and min values for y axis for all lines
+    let maxY = 0
+    for(let i = 0; i < vis.data.length; i++){
+      let obj = vis.data[i]
+      for(let key in obj){
+        if(yAxisVars.includes(key)){
+          if(obj[key] > maxY){
+            maxY = obj[key]
+          }
+        }
+      }
+    }
 
-    // Find max c line
-    const maxC = d3.max(vis.data, d => d.c);
-    const minC = d3.min(vis.data, d => d.c);
+    let minY = 0
+    for(let i = 0; i < vis.data.length; i++){
+      let obj = vis.data[i]
+      for(let key in obj){
+        if(yAxisVars.includes(key)){
+          if(obj[key] < minY){
+            minY = obj[key]
+          }
+        }
+      }
+    }
 
-    // Find max of a data for y axis
-    const maxY = Math.max(maxB, maxC);
-    const minY = Math.min(minB, minC);
-
-    // Find max of a data for x axis
+    // // Find max of a data for x axis, assuming 'a' values are x values
     const maxX = d3.max(vis.data, d => d.a);
     const minX = d3.min(vis.data, d => d.a);
 
