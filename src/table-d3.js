@@ -15,7 +15,11 @@ export default class D3Table {
     }
 
     // Append the table onto the element
-    let table = d3.select(element).append('table')
+    let table = d3.select(element)
+      .append('table')
+      .attr('class', 'header')
+
+    // Create header and body
     let header = table.append('header')
     let body = table.append('body')
 
@@ -26,6 +30,7 @@ export default class D3Table {
       .enter()
       .append('th')
         .text(function(column){return column})
+      .style('padding', '5px')
 
     // Create a row for each object in the data array
     let rows = body.selectAll('tr')

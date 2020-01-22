@@ -14,9 +14,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <p>Table and Chart</p>
-      </header> */}
       <div className='App-header'>
         <TableWrapper chartData={data}/>
         <ChartWrapper chartData={data} />
