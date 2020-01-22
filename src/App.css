@@ -83,6 +83,10 @@
   padding-right: 3%
 }
 
+.info-con {
+  margin-top: 1%
+}
+
 /* ------------------------
     Table
 ------------------------ */
@@ -108,3 +112,4 @@
 .header td {
   padding: 10px
 }
+

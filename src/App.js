@@ -25,12 +25,12 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
-          <div className="table-main">
-            <TableWrapper chartData={data} />
-          </div>
-          <div className="chart-main">
-            <ChartWrapper chartData={data} />
-          </div>
+        <div className="table-main">
+          <TableWrapper chartData={data} />
+        </div>
+        <div className="chart-main">
+          <ChartWrapper chartData={data} />
+        </div>
       </div>
     </div>
   );

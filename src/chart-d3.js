@@ -33,7 +33,7 @@ export default class D3Chart {
       .attr('x', WIDTH / 2)
       .attr('y', HEIGHT + 50)
       .attr('text-anchor', 'middle')
-      .text('a')
+      .text(`${Object.keys(vis.data[0])[0]}`) // 'a'
       .attr('class', 'axis-label');
 
     // Find data object with largest number of keys to get y-axis labels
