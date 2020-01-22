@@ -154,6 +154,9 @@ export default class D3Chart {
 
 
     // Create and populate each line
+    let lineColors = ['#b3b3cc', '#99d6ff', '#008ae6', '#004d80', '#000000']
+    // color scheme: grey, very light blue, light blue, dark blue, black
+    let lineColorIdx = 0
     let lineNames = Object.keys(vis.data[idxMaxKeys]).slice(1)
     lineNames.forEach(function(name){
       vis.svg
@@ -161,7 +164,7 @@ export default class D3Chart {
       .data([vis.data])
       .attr('class', 'line')
       .attr('fill', 'none')
-      .attr('stroke', '#004d80') // dark blue
+      .attr('stroke', `${lineColors[lineColorIdx]}`) // dark blue
       .attr('stroke-width', 3)
       .attr('d',
         d3
@@ -176,14 +179,20 @@ export default class D3Chart {
       .attr('data-legend', function(d) {
         return d.a;
       });
+
+      if(lineColorIdx !== lineColors.length-1){
+        lineColorIdx++
+      } else {
+        lineColorIdx = 0
+      }
+
     })
 
     // Create legend items for each line
     let spaceBtwnY = 1.1
     let spaceBtwnX1 = 600
     let spaceBtwnX2 = 625
-    let lineColors = ['#b3b3cc', '#008ae6', '#004d80', '#000000']
-    let lineColorIdx = 0
+    let legendColorIdx = 0
 
     lineNames.forEach(function(name){
       vis.svg
@@ -191,7 +200,7 @@ export default class D3Chart {
       .attr('cx', spaceBtwnX1)
       .attr('cy', (HEIGHT / 3) * spaceBtwnY)
       .attr('r', 6)
-      .style('fill', `${lineColors[lineColorIdx]}`);
+      .style('fill', `${lineColors[legendColorIdx]}`);
 
     vis.svg
       .append('text')
@@ -204,7 +213,13 @@ export default class D3Chart {
 
       // Alternate colors and add space between each legend item
       spaceBtwnY += 0.15
-      lineColorIdx++
+
+      if(legendColorIdx !== lineColors.length-1){
+        legendColorIdx++
+      } else {
+        legendColorIdx = 0
+      }
+
     })
 
     // Create Tooltips for lines
