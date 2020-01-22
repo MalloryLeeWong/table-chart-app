@@ -1,4 +1,4 @@
-## About
+## About the Table and Chart App
 This is a front-end web app that displays data as a table and a chart. As a user, you can see the table and chart data update dynamically when the data inputs are changed. The table and chart were built in a modular way to be re-usable.
 
 <p align="left">
@@ -7,7 +7,7 @@ This is a front-end web app that displays data as a table and a chart. As a user
      width="600px" height="auto" />
 </p>
 
-## Instructions
+## How to Use the App
 1. npm install (to install dependencies)
 2. npm start (to run the app locally in development mode; the page will re-load if you make edits)
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
