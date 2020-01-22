@@ -19,8 +19,10 @@ class ChartWrapper extends Component {
   render() {
     return (
       <div>
-        <Paper className="" elevation={4}>
-        <Typography variant="h5">Chart</Typography>
+        <Paper className="chart" elevation={4}>
+          <div className="title">
+          <Typography variant="h5">Chart</Typography>
+          </div>
           <div ref="chartWrapper" />
         </Paper>
       </div>

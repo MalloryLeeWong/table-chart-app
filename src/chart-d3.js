@@ -2,8 +2,8 @@
 import * as d3 from 'd3';
 
 // Define margin, width, and height of d3 chart canvas
-const MARGIN = { TOP: 20, BOTTOM: 60, LEFT: 60, RIGHT: 60 };
-const WIDTH = 600 - MARGIN.LEFT - MARGIN.RIGHT;
+const MARGIN = { TOP: 20, BOTTOM: 70, LEFT: 90, RIGHT: 180 };
+const WIDTH = 800 - MARGIN.LEFT - MARGIN.RIGHT;
 const HEIGHT = 500 - MARGIN.TOP - MARGIN.BOTTOM;
 
 export default class D3Chart {
@@ -25,7 +25,7 @@ export default class D3Chart {
     vis.xLabel = vis.svg
       .append('text')
       .attr('x', WIDTH / 2)
-      .attr('y', HEIGHT + 45)
+      .attr('y', HEIGHT + 50)
       .attr('text-anchor', 'middle')
       .text('a')
       .attr('class', 'axis-label')
@@ -34,7 +34,7 @@ export default class D3Chart {
     vis.svg
       .append('text')
       .attr('x', -(HEIGHT / 2))
-      .attr('y', -30)
+      .attr('y', -50)
       .attr('text-anchor', 'middle')
       .text('b, c')
       .attr('transform', 'rotate(-90)')
@@ -147,8 +147,9 @@ export default class D3Chart {
       .attr('class', 'line')
       .attr('fill', 'none')
       .attr('stroke', '#b3b3cc') // grey
-      .attr('stroke-width', 3)
-      .attr('d', lineB);
+      .attr('stroke-width', 4)
+      .attr('d', lineB)
+      .attr('data-legend', function(d){return d.a})
 
     // Populate line C
     vis.svg
@@ -157,8 +158,41 @@ export default class D3Chart {
       .attr('class', 'line')
       .attr('fill', 'none')
       .attr('stroke', '#007acc') // medium blue
-      .attr('stroke-width', 3)
-      .attr('d', lineC);
+      .attr('stroke-width', 4)
+      .attr('d', lineC)
+      .attr('data-legend', function(d){return d.a})
+
+    // Create legend circle
+    vis.svg
+      .append('circle')
+      .attr('cx', 600)
+      .attr('cy', (HEIGHT / 2) * 1.1)
+      .attr('r', 6)
+      .style('fill', '#004d80') // dark blue
+
+    vis.svg
+      .append('circle')
+      .attr('cx', 600)
+      .attr('cy', HEIGHT / 2)
+      .attr('r', 6)
+      .style('fill', '#b3b3cc') // grey
+
+    // Create legend text
+    vis.svg
+    .append('text')
+    .attr('x', 625)
+    .attr('y', (HEIGHT / 2) * 1.1)
+    .text('c')
+    .style('font-size', '60%')
+    .attr('alignment-baseline', 'middle')
+
+    vis.svg
+      .append('text')
+      .attr('x', 625)
+      .attr('y', HEIGHT / 2)
+      .text('b') // b is grey
+      .style('font-size', '60%')
+      .attr('alignment-baseline', 'middle')
 
     // Create Tooltips for lines
     vis.Tooltip = d3
