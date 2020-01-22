@@ -8,11 +8,11 @@ import InfoIcon from '@material-ui/icons/Info';
 class ChartWrapper extends Component {
   constructor(props) {
     super(props);
-    // this.state = {}
     this.chart = null;
   }
 
   componentDidMount() {
+    // Create an instance of the chart if one doesn't exist
     if (this.chart === null) {
       this.chart = new D3Chart(this.refs.chartWrapper, this.props.chartData);
     }

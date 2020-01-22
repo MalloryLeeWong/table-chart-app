@@ -6,7 +6,8 @@ import TableWrapper from './table-wrapper';
 function App() {
   // Data inputs for each chart is loaded below to demo the front-end without a server
 
-  // Data sample 1 (Original data including two lines)
+  // Data sample 1 (Original data including two lines):
+
   const data = [
     { a: 1, b: 3, c: 10 },
     { a: 3, b: 20, c: 12 },
@@ -14,6 +15,7 @@ function App() {
   ];
 
   // Data sample 2 (Uncomment to include more and longer lines):
+
   // const data = [
   //   { a: 1, b: 3, c: 10, d: 17, e: 40, f: 45 },
   //   { a: 3, b: 20, c: 12, d: 28, e: 50, f: 57 },
