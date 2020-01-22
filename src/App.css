@@ -96,15 +96,13 @@
   flex-direction: column;
   align-items: center;
   align-content: space-between;
-  padding: 10% 10%;
-  margin: 15% auto 15% auto;
+  padding: 5% 5%;
+  margin: 5% auto 5% auto;
   font-size: calc(10px + 1vmin);
 }
 
 .header th {
   padding: 12px
-  /* padding-left: 8%;
-  padding-right: 8%; */
 }
 
 .header td {
