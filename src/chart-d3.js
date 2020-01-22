@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 
 // Define margin, width, and height of d3 chart canvas
-const MARGIN = { TOP: 20, BOTTOM: 70, LEFT: 90, RIGHT: 180 };
+const MARGIN = { TOP: 20, BOTTOM: 70, LEFT: 100, RIGHT: 150 };
 const WIDTH = 800 - MARGIN.LEFT - MARGIN.RIGHT;
 const HEIGHT = 500 - MARGIN.TOP - MARGIN.BOTTOM;
 
@@ -190,8 +190,8 @@ export default class D3Chart {
 
     // Create legend items for each line
     let spaceBtwnY = 1.1
-    let spaceBtwnX1 = 600
-    let spaceBtwnX2 = 625
+    let spaceBtwnX1 = WIDTH + MARGIN.RIGHT - 100
+    let spaceBtwnX2 = spaceBtwnX1 + 25
     let legendColorIdx = 0
 
     lineNames.forEach(function(name){
@@ -199,7 +199,7 @@ export default class D3Chart {
       .append('circle')
       .attr('cx', spaceBtwnX1)
       .attr('cy', (HEIGHT / 3) * spaceBtwnY)
-      .attr('r', 6)
+      .attr('r', 5)
       .style('fill', `${lineColors[legendColorIdx]}`);
 
     vis.svg
