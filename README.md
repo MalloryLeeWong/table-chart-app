@@ -17,7 +17,7 @@ This is a front-end web app that displays data as a table and a chart. As a user
 1. npm install (to install dependencies)
 2. npm start (to run the app locally in development mode; the page will re-load if you make edits)
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
-4. Update the data inputs for the table and chart by manipulating the variable called "data" at the top of the src/App.js file. Upon saving changes, the data updates will be reflected in the table and chart.
+4. Update the data inputs for the table and chart by manipulating the variable called "data" at the top of the src/App.js file. There are two versions of the "data" variable provided, one smaller data set, and one larger, which you can select from to demo. Upon saving changes, the data updates will be reflected in the table and chart.
 
 ## Technologies Used
 - Javascript
