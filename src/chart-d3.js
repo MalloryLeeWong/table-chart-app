@@ -21,6 +21,11 @@ export default class D3Chart {
       // Add margin on left and top
       .attr('transform', `translate(${MARGIN.LEFT}, ${MARGIN.TOP})`);
 
+    // Sort input data
+    vis.data = chartData.sort(function(a, b) {
+      return a.a - b.a;
+    });
+
     // Add x-axis label
     vis.xLabel = vis.svg
       .append('text')
@@ -30,13 +35,27 @@ export default class D3Chart {
       .text('a')
       .attr('class', 'axis-label');
 
+    // Find data object with largest number of keys to get y axis labels
+    let maxKeys = 0
+    let idxMaxKeys = 0
+    for(let i = 0; i < vis.data; i++){
+      let obj = vis.data[i]
+      if(Object.keys(obj).length > maxKeys){
+        maxKeys = Object.keys(obj).length
+        idxMaxKeys = i
+      }
+    }
+
+    let yAxisVars = Object.keys(vis.data[idxMaxKeys]).slice(1).join(', ')
+
     // Add y-axis label
     vis.svg
       .append('text')
       .attr('x', -(HEIGHT / 2))
       .attr('y', -50)
       .attr('text-anchor', 'middle')
-      .text('b, c')
+      // .text('b, c')
+      .text(`${yAxisVars}`)
       .attr('transform', 'rotate(-90)')
       .attr('class', 'axis-label');
 
@@ -48,11 +67,6 @@ export default class D3Chart {
       .attr('transform', `translate(0, ${HEIGHT})`);
 
     vis.yAxisGroup = vis.svg.append('g');
-
-    // Sort input data
-    vis.data = chartData.sort(function(a, b) {
-      return a.a - b.a;
-    });
 
     // Find max b line
     const maxB = d3.max(vis.data, d => d.b);
@@ -71,18 +85,18 @@ export default class D3Chart {
     const minX = d3.min(vis.data, d => d.a);
 
     // Get y axis tick values
-    let incremY = (Math.abs(maxY) + Math.abs(minY)) / 10
+    let incremY = (Math.abs(maxY) + Math.abs(minY)) / 10;
     let yVals = [];
     for (let i = minY; i <= maxY; i += incremY) {
       yVals.push(i);
     }
 
     // Get x axis tick values
-    let incremX = (Math.abs(maxX) + Math.abs(minX)) / 10
+    let incremX = (Math.abs(maxX) + Math.abs(minX)) / 10;
     let xVals = [];
     for (let i = minX; i <= maxX; i += incremX) {
       // xVals.push(vis.data[i].a);
-      xVals.push(i)
+      xVals.push(i);
     }
 
     // Scale y axis
@@ -176,14 +190,14 @@ export default class D3Chart {
       .attr('cx', 600)
       .attr('cy', (HEIGHT / 2) * 1.1)
       .attr('r', 6)
-      .style('fill', '#004d80') // dark blue
+      .style('fill', '#004d80'); // dark blue
 
     vis.svg
       .append('circle')
       .attr('cx', 600)
       .attr('cy', HEIGHT / 2)
       .attr('r', 6)
-      .style('fill', '#b3b3cc') // grey
+      .style('fill', '#b3b3cc'); // grey
 
     // Create legend text
     vis.svg
@@ -193,7 +207,7 @@ export default class D3Chart {
       .text('c')
       .style('font-size', '60%')
       .attr('alignment-baseline', 'middle')
-      .attr('class', 'legend-text')
+      .attr('class', 'legend-text');
 
     vis.svg
       .append('text')
@@ -203,7 +217,7 @@ export default class D3Chart {
       .style('font-size', '60%')
       .attr('alignment-baseline', 'middle')
       .style('padding-right', '3%')
-      .attr('class', 'legend-text')
+      .attr('class', 'legend-text');
 
     // Create Tooltips for lines
     vis.Tooltip = d3
