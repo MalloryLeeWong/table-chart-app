@@ -4,7 +4,9 @@ import ChartWrapper from './chart-wrapper';
 import TableWrapper from './table-wrapper';
 
 function App() {
-  // Data inputs for each chart is loaded below to demo the front-end without a server
+  // Data inputs for the table and chart are passed to the table and chart components below to demo the front-end without a server.
+
+  // In each data object, the 'a' key represents the x-axis value, and the remaining keys correspond to y-axis values for each line.
 
   // Data sample 1 (Original data including two lines):
 
@@ -14,7 +16,7 @@ function App() {
     { a: -1, b: -5, c: -4 },
   ];
 
-  // Data sample 2 (Uncomment to include more and longer lines):
+  // Data sample 2 (Uncomment to demo more and longer lines):
 
   // const data = [
   //   { a: 1, b: 3, c: 10, d: 17, e: 40, f: 45 },

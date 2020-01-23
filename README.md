@@ -1,5 +1,5 @@
 ## About the Table and Chart App
-This is a front-end web app that displays data as a table and a chart. As a user, you can see the table and chart data update dynamically when the data inputs are changed. The table and chart were built in a modular way to be re-usable.
+This is a front-end web app that displays data as a table and a chart. As a user, you can see the table and chart data update dynamically when the data inputs are changed. You can also hover over each data point in the chart to see tooltips. The table and chart were built in a modular way to be re-usable.
 
 <p align="left">
 <img src="public/view-1.png"
@@ -18,7 +18,7 @@ This is a front-end web app that displays data as a table and a chart. As a user
 2. npm install (to install dependencies)
 3. npm start (to run the app locally in development mode; the page will re-load if you make edits)
 4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
-5. Update the data inputs for the table and chart by manipulating the variable called "data" at the top of the src/App.js file. There are two versions of the "data" variable provided, one smaller data set, and one larger, which you can select from to demo. Upon saving changes, the data updates will be reflected in the table and chart.
+5. Update the data inputs for the table and chart by manipulating the variable called "data" at the top of the src/App.js file. There are two versions of the "data" variable provided, one smaller data set, and one larger, which you can select from to demo. The data input format is an array of objects. In each object, the first key-value pair represents the x-axis values and the remaining key-value pairs represent the y-axis data points. Upon saving changes, the data updates will be reflected in the table and chart.
 
 The main React components and D3.js files for the chart and table can be found in the src folder and labelled as chart-d3.js, chart-wrapper.js, table-d3.js, and table-wrapper.js. The main parent component is in App.js.
 
