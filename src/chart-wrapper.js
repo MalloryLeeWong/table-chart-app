@@ -37,7 +37,8 @@ class ChartWrapper extends Component {
     });
     let titleStrFront = titleArr.slice(0, -1).join(', ');
     let titleStrEnd = titleArr.slice(-1);
-    let titleStr = titleStrFront + ', and ' + titleStrEnd;
+    // let titleStr = titleStrFront + ', and ' + titleStrEnd;
+    let titleStr = lineNames.length > 2 ? titleStrFront + ', and ' + titleStrEnd : titleArr[0] + ' and ' + titleArr[1]
 
     return (
       <div>
